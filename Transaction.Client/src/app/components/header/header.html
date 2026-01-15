@@ -1,0 +1,19 @@
+<!-- <p>header works!</p>
+<a [routerLink]="'/login'">Login</a> |
+<a [routerLink]="'/signup'">SignUp</a> -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary opacity-75 mb-4">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand me-4" href="#">Expense Tracker</a>
+        </div>
+
+        <div class="ms-auto">
+            <a class="btn btn-outline-light me-2" routerLink="/transactions/new" role="button">
+                <i class="bi bi-plus-square"></i> Add Transaction</a>
+            <a class="btn btn-outline-light me-2" routerLink="/login" role="button">
+                <i class="bi bi-box-arrow-in-right"></i> Login</a>
+            <a class="btn btn-outline-light" routerLink="/signup" role="button">
+                <i class="bi bi-box-arrow-left"></i> Sign Up</a>
+        </div>
+    </div>
+</nav>
