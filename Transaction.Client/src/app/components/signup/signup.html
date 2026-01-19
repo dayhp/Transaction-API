@@ -1,1 +1,106 @@
-<p>signup works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card mt-5">
+                <div class="card-header bg-primary bg-opacity-75">
+                    <h3 class="card-title mb-0 text-white">Sign Up</h3>
+                </div>
+
+                <div class="card-body">
+                    @if (errorMessage) {
+                    <div class="alert alert-danger" role="alert">
+                        {{ errorMessage }}
+                    </div>
+                    }
+                    <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input
+                                [ngClass]="{'is-invalid': hasError('username', 'required') || hasError('username', 'maxlength')}"
+                                type="text" id="username" class="form-control" formControlName="username" required>
+
+                            <div class="invalid-feedback">
+                                @if (hasError('username', 'required')) {
+                                <div>Username is required.</div>
+                                }
+                                @if (hasError('username', 'maxlength')) {
+                                <div>Username cannot exceed 10 characters.</div>
+                                }
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" formControlName="email"
+                                [ngClass]="{'is-invalid': hasError('email', 'required') || hasError('email', 'email')}"
+                                required>
+                            <div class="invalid-feedback">
+                                @if (hasError('email', 'required')) {
+                                <div>Email is required.</div>
+                                }
+                                @if (hasError('email', 'email')) {
+                                <div>Please enter a valid email address.</div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" class="form-control" formControlName="password"
+                                [ngClass]="{'is-invalid': hasError('password', 'required') || hasError('password', 'minlength')}"
+                                required>
+                            <div class="invalid-feedback">
+                                @if (hasError('password', 'required')) {
+                                <div>Password is required.</div>
+                                }
+                                @if (hasError('password', 'minlength')) {
+                                <div>Password must be at least 6 characters long.</div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" id="confirmPassword" class="form-control"
+                                formControlName="confirmPassword"
+                                [ngClass]="{'is-invalid': hasError('confirmPassword', 'required') || hasError('confirmPassword', 'minlength') 
+                                || (signupForm.errors?.['passwordMismatch'] && signupForm.get('confirmPassword')?.touched)}" required>
+
+                            <div class="invalid-feedback">
+                                @if (hasError('confirmPassword', 'required')) {
+                                <div>Confirm Password is required.</div>
+                                }
+                                @if (hasError('confirmPassword', 'minlength')) {
+                                <div>Confirm Password must be at least 6 characters long.</div>
+                                }
+                                @if (signupForm.errors?.['passwordMismatch'] &&
+                                signupForm.get('confirmPassword')?.touched) {
+                                <div>Passwords do not match.</div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- @if (signupForm.errors?.['passwordMismatch'] && signupForm.get('confirmPassword')?.touched) {
+                        <div class="mb-3">
+                            <p class="text-danger">Passwords do not match.</p>
+                        </div>
+                        } -->
+                        
+                        @if (errorMessage) {
+                        <div class="mb-3">
+                            <p class="text-danger">{{ errorMessage }}</p>
+                        </div>
+                        }
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary w-100" [disabled]="!signupForm.valid">Sign
+                                Up</button>
+                        </div>
+
+                        <div class="text-center mt-3"> Already have an account? <a routerLink="/login">Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

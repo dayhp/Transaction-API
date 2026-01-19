@@ -5,6 +5,7 @@ namespace Transaction.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class TransactionsController : ControllerBase
     {
         private readonly ILogger<TransactionsController> _logger;
@@ -18,6 +19,7 @@ namespace Transaction.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            var httpContext = HttpContext;
             var transactions = await _tractionsServices.GetAllTransactionsAsync();
             return Ok(transactions);
         }

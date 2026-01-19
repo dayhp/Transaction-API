@@ -64,4 +64,6 @@ For more information on using the Angular CLI, including detailed command refere
 
 ## cli create services angular
 1. Create services: ng g s transaction.
-2. Create interface: ng g i transaction
+## cli create model angular
+1. Create interface: ng g i transaction
+2. Create interface: ng g cl user

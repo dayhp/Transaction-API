@@ -51,8 +51,13 @@ export class TransactionListComponent implements OnInit {
 
   deleteTransaction(transaction: Transaction): void {
     if (confirm(`Are you sure you want to delete this transaction?`)) {
-      this.transactionService.deleteTransaction(transaction.id).subscribe(() => {
-        this.loadTransactions();
+      this.transactionService.deleteTransaction(transaction.id).subscribe({
+        next: () => {
+          this.loadTransactions();
+        },
+        error: (error) => {
+          console.error('Error deleting transaction:', error);
+        }
       });
     }
   }
