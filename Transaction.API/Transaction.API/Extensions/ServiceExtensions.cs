@@ -75,7 +75,6 @@ namespace Transaction.API.Extensions
                         }
                     };
                 });
-
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Transaction.API.Data.Servives.Inteface;
 using Transaction.API.DTOs;
+using Transaction.API.Models;
 
 namespace Transaction.API.Data.Servives
 {
@@ -14,7 +15,8 @@ namespace Transaction.API.Data.Servives
                 Category = postTransactionsDto.Category,
                 Amount = postTransactionsDto.Amount,
                 Description = postTransactionsDto.Description,
-                TransactionDate = postTransactionsDto.TransactionDate
+                TransactionDate = postTransactionsDto.TransactionDate,
+                UserId = postTransactionsDto.UserId
             };
             await _context.Transactions.AddAsync(transaction);
             await _context.SaveChangesAsync();
@@ -59,6 +61,11 @@ namespace Transaction.API.Data.Servives
             _context.Transactions.Update(transaction);
             await _context.SaveChangesAsync();
             return transaction;
+        }
+
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

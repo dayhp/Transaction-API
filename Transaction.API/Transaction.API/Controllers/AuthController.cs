@@ -49,7 +49,7 @@ namespace Transaction.API.Controllers
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.Strict,
-                Expires = DateTime.UtcNow.AddMinutes(60)
+                Expires = DateTime.UtcNow.AddMinutes(120)
             };
             Response.Cookies.Append("X-Access-Token", token, cookieOptions);
             return Ok(new { Token = token });

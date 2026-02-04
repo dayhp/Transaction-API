@@ -7,13 +7,22 @@
             <a class="navbar-brand me-4" href="#">Expense Tracker</a>
         </div>
 
+        @if (authService.currentUser$ | async) {
         <div class="ms-auto">
             <a class="btn btn-outline-light me-2" routerLink="/transactions/new" role="button">
                 <i class="bi bi-plus-square"></i> Add Transaction</a>
-            <a class="btn btn-outline-light me-2" routerLink="/login" role="button">
+            <!-- <a class="btn btn-outline-light me-2" routerLink="/login" role="button">
                 <i class="bi bi-box-arrow-in-right"></i> Login</a>
             <a class="btn btn-outline-light" routerLink="/signup" role="button">
+                <i class="bi bi-box-arrow-left"></i> Sign Up</a> -->
+            <a class="btn btn-outline-light me-2" (click)="authService.logout()" role="button">
+                <i class="bi bi-box-arrow-in-right"></i> Logout</a>
+        </div>
+        } @else {
+        <div class="ms-auto">
+             <a class="btn btn-outline-light" routerLink="/signup" role="button">
                 <i class="bi bi-box-arrow-left"></i> Sign Up</a>
         </div>
+        }
     </div>
 </nav>

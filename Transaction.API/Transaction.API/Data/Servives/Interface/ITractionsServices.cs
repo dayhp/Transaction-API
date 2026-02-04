@@ -1,4 +1,6 @@
-﻿namespace Transaction.API.Data.Servives.Inteface
+﻿using Transaction.API.Models;
+
+namespace Transaction.API.Data.Servives.Inteface
 {
     public interface ITractionsServices
     {
@@ -7,5 +9,6 @@
         Task<IEnumerable<Models.Transaction>> GetAllTransactionsAsync();
         Task<Models.Transaction?> UpdateTransactionAsync(Guid transactionId, DTOs.PutTransactionsDto putTransactionsDto);
         Task<bool> DeleteTransactionAsync(Guid transactionId);
+        Task<User?> GetUserByEmailAsync(string email);
     }
 }

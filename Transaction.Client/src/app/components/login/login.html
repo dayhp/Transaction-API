@@ -1,1 +1,59 @@
-<p>login works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card mt-5">
+                <div class="card-header bg-primary bg-opacity-75">
+                    <h3 class="card-title mb-0 text-white">Login</h3>
+                </div>
+
+                <div class="card-body">
+                    @if (errorMessage) {
+                    <div class="alert alert-danger" role="alert">
+                        {{ errorMessage }}
+                    </div>
+                    }
+                    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" formControlName="email"
+                                [ngClass]="{'is-invalid': hasError('email', 'required') || hasError('email', 'email')}"
+                                required>
+                            <div class="invalid-feedback">
+                                @if (hasError('email', 'required')) {
+                                <div>Email is required.</div>
+                                }
+                                @if (hasError('email', 'email')) {
+                                <div>Please enter a valid email address.</div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" class="form-control" formControlName="password"
+                                [ngClass]="{'is-invalid': hasError('password', 'required') || hasError('password', 'minlength')}"
+                                required>
+                            <div class="invalid-feedback">
+                                @if (hasError('password', 'required')) {
+                                <div>Password is required.</div>
+                                }
+                                @if (hasError('password', 'minlength')) {
+                                <div>Password must be at least 6 characters long.</div>
+                                }
+                            </div>
+                        </div>
+
+                        @if (errorMessage) {
+                        <div class="mb-3">
+                            <p class="text-danger">{{ errorMessage }}</p>
+                        </div>
+                        }
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary w-100"
+                                [disabled]="!loginForm.valid">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Transaction.API.Data.Servives.Inteface;
 using Transaction.API.DTOs;
 namespace Transaction.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/transactions")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class TransactionsController : ControllerBase
     {
         private readonly ILogger<TransactionsController> _logger;
@@ -17,7 +19,7 @@ namespace Transaction.API.Controllers
             _tractionsServices = tractionsServices;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Get()
         {
             var httpContext = HttpContext;
             var transactions = await _tractionsServices.GetAllTransactionsAsync();
@@ -40,10 +42,24 @@ namespace Transaction.API.Controllers
         public async Task<IActionResult> CreateTransaction([FromBody] PostTransactionsDto request)
         {
             // Placeholder for creating a new transaction logic
+            var nameIdentiferName = User.FindFirst(ClaimTypes.Email)?.Value;
+            if (string.IsNullOrEmpty(nameIdentiferName))
+            {
+                return BadRequest("Invalid user");
+            }
+
+            var user = await _tractionsServices.GetUserByEmailAsync(nameIdentiferName);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+
             if (request == null)
             {
                 return BadRequest("Invalid transaction data.");
             }
+
+            request.UserId = user.Id;
             var transaction = await _tractionsServices.CreateTransactionAsync(request);
             return Ok(transaction);
         }

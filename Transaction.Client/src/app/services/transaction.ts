@@ -11,22 +11,22 @@ export class TransactionsService {
   constructor(private http: HttpClient) {}
 
   getTransactions() : Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.apiUrl}/Transactions`);
+    return this.http.get<Transaction[]>(`${this.apiUrl}/transactions`);
   }
 
   getTransactionById(id: string) : Observable<Transaction> {
-    return this.http.get<Transaction>(`${this.apiUrl}/Transactions/${id}`);
+    return this.http.get<Transaction>(`${this.apiUrl}/transactions/${id}`);
   }
   
   createTransaction(transaction: Transaction) : Observable<Transaction> {
-    return this.http.post<Transaction>(`${this.apiUrl}/Transactions`, transaction);
+    return this.http.post<Transaction>(`${this.apiUrl}/transactions`, transaction);
   }
 
   updateTransaction(id: string, transaction: Transaction) : Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/Transactions/${id}`, transaction);
+    return this.http.put<void>(`${this.apiUrl}/transactions/${id}`, transaction);
   }
 
   deleteTransaction(id: string) : Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/Transactions/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/transactions/${id}`);
   }
 }
